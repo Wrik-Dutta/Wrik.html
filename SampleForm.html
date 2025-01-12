@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background-color: #f4f4f4;
+    }
+
+    form {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    input, select, textarea, button {
+      width: 100%;
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      cursor: pointer;
+      border: none;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    input[type="radio"], input[type="checkbox"] {
+      width: auto;
+      margin-right: 5px;
+    }
+
+    textarea {
+      resize: vertical;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+  </style>
+</head>
+<body>
+  <form id="myForm" action="/submit.php">
+    <div>
+      <label for="name">Name</label>
+      <input id="name" type="text" placeholder="enter name" required="true">
+      <div class="error" id="nameError"></div>
+    </div>
+    <div>
+      <label for="phone">Phone No.</label>
+      <input id="phone" type="tel" placeholder="enter phone no." required="true">
+      <div class="error" id="phoneError"></div>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input id="email" type="email" placeholder="enter email" required>
+      <div class="error" id="emailError"></div>
+    </div>
+    <div>
+      <label for="password">Password</label>
+      <input id="password" type="password" placeholder="enter password" required="true">
+      <div class="error" id="passwordError"></div>
+    </div>
+    <div>
+      <label for="date">Date</label>
+      <input id="date" type="date" placeholder="enter date" required="true">
+      <div class="error" id="dateError"></div>
+    </div>
+    <div>
+      <label for="gender">Gender</label>
+      <select id="gender" required>
+        <option value="" disabled selected>select gender</option>
+        <option value="male">Male</option>
+        <option value="female">Female</option>
+        <option value="other">Other</option>
+      </select>
+      <div class="error" id="genderError"></div>
+    </div>
+    <div>
+      <label for="basic">Basic</label>
+      <input type="radio" id="basic" name="subscription" value="basic" required>
+      <label for="premium">Premium</label>
+      <input type="radio" id="premium" name="subscription">
+      <label for="vip">VIP</label>
+      <input type="radio" id="vip" name="subscription">
+      <div class="error" id="subscriptionError"></div>
+    </div>
+    <div>
+      <input type="checkbox" id="terms" required="true">
+      <label for="terms">I agree to the terms and conditions</label>
+      <div class="error" id="termsError"></div>
+    </div>
+    <div>
+      <label for="coments">Comments</label>
+      <textarea placeholder="Enter your comments" id="coments" cols="30" rows="10"></textarea>
+    </div>
+    <div>
+      <button type="submit">Submit</button>
+    </div>
+  </form>
+
+  <script>
+    const form = document.getElementById('myForm');
+
+    form.addEventListener('submit', function (e) {
+      let isValid = true;
+
+      // Validate Name
+      const name = document.getElementById('name');
+      const nameError = document.getElementById('nameError');
+      if (name.value.trim() === '') {
+        nameError.textContent = 'Name is required';
+        isValid = false;
+      } else {
+        nameError.textContent = '';
+      }
+
+      // Validate Phone
+      const phone = document.getElementById('phone');
+      const phoneError = document.getElementById('phoneError');
+      const phoneRegex = /^[0-9]{10}$/;
+      if (!phoneRegex.test(phone.value)) {
+        phoneError.textContent = 'Enter a valid 10-digit phone number';
+        isValid = false;
+      } else {
+        phoneError.textContent = '';
+      }
+
+      // Validate Email
+      const email = document.getElementById('email');
+      const emailError = document.getElementById('emailError');
+      const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;
+      if (!emailRegex.test(email.value)) {
+        emailError.textContent = 'Enter a valid email address';
+        isValid = false;
+      } else {
+        emailError.textContent = '';
+      }
+
+      // Prevent submission if form is invalid
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
